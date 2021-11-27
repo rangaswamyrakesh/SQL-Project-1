@@ -1,0 +1,142 @@
+1. 
+
+select * from cd.facilities;
+
+2.
+
+select name, membercost from facilities;
+
+3.
+
+select* from facilities where membercost NOT LIKE 0;
+
+4.
+
+select facid,  name, membercost, monthlymaintenance from facilities 
+ where membercost  < (monthlymaintenance/50)
+ AND membercost not like 0;
+
+5.
+
+select * from facilities  where name like '%Tennis%';
+
+6.
+
+select * from facilities where 
+not facid = 0 
+and not facid =2
+and not facid =3
+and not facid =4
+and not facid =6
+and not facid =7
+and not facid =8;
+
+7.
+
+select memid, surname, firstname, joindate from members 
+WHERE joindate > 20120831
+
+8.
+
+
+select surname from members
+group by surname
+ORDER by surname
+limit 10;
+
+9.
+
+select joindate from members 
+order by joindate DESC LIMIT 1 
+
+10.
+
+select COUNT(guestcost) from facilities where guestcost >=10
+
+11.
+
+SELECT facid, SUM(slots) as Total_slots FROM bookings 
+where starttime BETWEEN 20120900 and 20120931 
+group by facid 
+order by total_slots;
+
+12.
+
+SELECT facid, SUM(slots) as Total_slots FROM bookings 
+group by facid 
+having total_slots>1000
+order by facid;
+
+13.
+
+SELECT (bookings.starttime) as Start, facilities.name FROM bookings, facilities 
+where bookings.facid = facilities.facid and name like '%Tennis court%' 
+having Start between 20120921 and 20120922 
+order by Start;
+
+14.
+
+SELECT bookings.starttime FROM bookings, members
+where bookings.memid = members.memid 
+and firstname like '%David%'
+and surname like '%Farrell%'
+
+
+SQL task 
+
+-- Creatingf Database----
+create database school;
+
+---Creating Table Students---
+
+create table students (
+    student_id varchar(255),
+    first_name char(255),
+    last_name char(255),
+    homeroom_number int,
+    phone int,
+    email varchar(255),
+    graduation_year year
+    );
+
+--Creating Table teachers--
+
+CREATE table  teachers(
+    teacher_id varchar(255) PRIMARY KEY,
+    first_name char(255),
+    last_name char(255),
+    homeroom_number int,
+    department varchar(255),
+    phone int NOT NULL,
+    email varchar(255) UNIQUE
+);
+
+--- Adding constraints---
+
+ALTER TABLE students
+ADD CONSTRAINT PK_student PRIMARY KEY (Student_id);
+
+ALTER TABLE students
+MODIFY phone  char(10) NOT NUll UNIQUE;
+
+ALTER TABLE students
+MODIFY email  nvarchar(320) UNIQUE;
+
+ALTER TABLE teachers
+MODIFY email  nvarchar(320) UNIQUE;
+
+ALTER TABLE teachers
+MODIFY phone  char(10) not null UNIQUE;
+
+ALTER TABLE teachers
+ADD CONSTRAINT PK_teachers PRIMARY KEY (teacher_id);
+
+--- Inserting Values into tables----
+
+
+INSERT INTO students (student_id, first_name, last_name, homeroom_number, phone, email,graduation_year)
+VALUES('1', 'Mark', 'Watney','5','7775551234',Null,'2035');
+
+
+INSERT INTO teachers (teacher_id, first_name, last_name, homeroom_number, phone, email,department)
+VALUES('1', 'Jonas', 'Salk','5','7775554321','jsalk@school.org','Biology');
